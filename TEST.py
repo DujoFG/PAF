@@ -1,0 +1,1 @@
+print("visokofrekvencijsko pojacalo")
