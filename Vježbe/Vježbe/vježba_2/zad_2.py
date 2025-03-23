@@ -27,8 +27,6 @@ for i,time in enumerate(t):
         else:
             y_t.append(0)
 
-print(len(t),len(x_t),len(y_t))
-
 plt.subplot(1,3,1)
 plt.xlabel('x(t)/[m]')
 plt.ylabel('y(t)/[m]')
