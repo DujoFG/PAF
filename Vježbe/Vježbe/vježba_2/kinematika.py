@@ -73,4 +73,3 @@ def kosi_hitac(v0,fi,t1,t2,dt):
     plt.scatter(t,x_t)
     plt.show()
 
-jednoliko_gibanje(2,2,0,10,0.5)
