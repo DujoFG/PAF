@@ -7,7 +7,7 @@ fi=float(input('Unesite poč. kut:'))
 fi=math.radians(fi)
 g=-9.81
 dt=0.1
-t=np.arange(0,10,dt)
+t=np.arange(0,10+dt,dt)
 x0=0
 y0=0
 x_t=[x0]
@@ -26,6 +26,8 @@ for i,time in enumerate(t):
             y_t.append(y)
         else:
             y_t.append(0)
+
+print(len(t),len(x_t),len(y_t))
 
 plt.subplot(1,3,1)
 plt.xlabel('x(t)/[m]')
