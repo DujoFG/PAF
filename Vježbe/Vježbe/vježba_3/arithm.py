@@ -15,5 +15,4 @@ def ars_stdv(toč):
 toč=[2,3,4,1,5,3,2,4,4,1]   
 ars_stdv(toč)
 
-def ars_stdv_mod(toč):
-    np.polyfit()
+
