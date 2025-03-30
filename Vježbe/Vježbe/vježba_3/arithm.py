@@ -1,5 +1,4 @@
 import math as m
-import numpy as np
 
 def ars_stdv(toč):
     br=0
@@ -9,8 +8,8 @@ def ars_stdv(toč):
     ars=br/len(toč)
     for i in toč:
         brsd+=(i-ars)**2
-    stdv=m.sqrt(brsd/(len(toč)*(len(toč)-1)))
-    print("{}+-{}".format(ars,stdv))
+    stdv=m.sqrt(brsd/(len(toč)))
+    print("{}+/-{}".format(ars,stdv))
     
 toč=[2,3,4,1,5,3,2,4,4,1]   
 ars_stdv(toč)
