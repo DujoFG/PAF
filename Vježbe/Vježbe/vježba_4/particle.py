@@ -18,8 +18,7 @@ class Particle:
         self.r[0]=self.r[0]+self.v[0]*dt
         return self.r[0]
     
-    def range(self):
-        dt=0.0001
+    def range(self,dt):
         g=-9.81
         x=[self.r[0]]
         y=[self.r[1]]
