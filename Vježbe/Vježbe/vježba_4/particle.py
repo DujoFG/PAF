@@ -1,4 +1,6 @@
 import math as m
+import numpy as np
+import matplotlib.pyplot as plt
 
 class Particle:
     def __init__(self,v,fi,r): #r=[x,y]
@@ -23,7 +25,7 @@ class Particle:
         y=[self.r[1]]
         vy=[self.v[1]]
         i=0
-        while self.r[1]>=0 or self.v[1]>=0:
+        while self.r[1]>0 or self.v[1]>=0:
             self.r[0]=x[i]+self.v[0]*dt
             x.append(self.r[0])
             self.r[1]=y[i]+vy[i]*dt
@@ -48,12 +50,13 @@ class Particle:
             self.v[1]=vy[i]+g*dt
             vy.append(self.v[1])
             i+=1
+        plt.plot(x,y)
+        plt.xlabel("x/[m]")
+        plt.ylabel("y/[m]")
+        plt.axhline(0,c='k')
+        plt.show()
 
-p=Particle(10,30,[2,2])
-p.range()
-print("Kut:",p.fi)
-print("Mjesto:",p.r)
-print("Brzina:",p.v)
+
 
 
 

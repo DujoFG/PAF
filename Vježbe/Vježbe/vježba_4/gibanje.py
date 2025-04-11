@@ -1,4 +1,4 @@
 import particle as prt
 
-p=prt.Particle(10,30,[0,0])
-p.range(0.1)
+p=prt.Particle(20,30,[0,-2])
+p.range()
