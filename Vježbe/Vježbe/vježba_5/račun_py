@@ -1,0 +1,9 @@
+import calculus as cal
+
+
+def f(x):
+    return 2*x-3
+
+c=cal.Calculus(f)
+c.derivacija([0,-3], 3)
+
