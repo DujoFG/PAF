@@ -25,6 +25,18 @@ class Calculus:
                 der.append([x,df])
         return der
 
+    def int_pr(self,dgi,ggi,N):
+        dx=(ggi-dgi)/(N-1)
+        Fg=0
+        Fd=0
+        for x1 in np.linspace(dgi+dx,ggi,N-1):
+            Fg+=self.f(x1)*dx
+        for x2 in np.linspace(dgi,ggi-dx,N-1):
+            Fd+=self.f(x2)*dx
+        print(Fg,Fd)
+        return Fg,Fd
 
-
-
+def f(x):
+    return 2*x+3
+c=Calculus(f)
+c.int_pr(-1,3,200)
