@@ -4,8 +4,7 @@ class Calculus:
     def __init__(self,f):
         self.f=f
 
-    def d_tocka(self,P,m=None):
-        h=0.001
+    def d_tocka(self,P,h,m=None):
         x=P[0]
         y=P[1]
         if m is None:
@@ -16,19 +15,15 @@ class Calculus:
         return df
     
     def d_int(self,dg,gg,h,m=None):
-        točke=[]
-        df_t=[]
-        for x in np.linspace(dg,gg,20):
+        der=[]
+        for x in np.arange(dg,gg,0.2):
             if m is None:
                 df=(self.f(x+h)-self.f(x-h))/(2*h)
-                točke.append(x)
-                df_t.append(df)
+                der.append([x,df])
             else:
                 df=(self.f(x+h)-self.f(x))/h
-                točke.append(x)
-                df_t.append(df)
-        print(točke,df_t)
-        return točke,df_t
+                der.append([x,df])
+        return der
 
 
 
