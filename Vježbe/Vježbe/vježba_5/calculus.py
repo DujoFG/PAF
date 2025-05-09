@@ -11,7 +11,6 @@ class Calculus:
             df=(self.f(x+h)-self.f(x-h))/(2*h)
         else:
             df=(self.f(x+h)-y)/h
-        print(df)
         return df
     
     def d_int(self,dg,gg,h,m=None):
@@ -33,7 +32,6 @@ class Calculus:
             Fg+=self.f(x1)*dx
         for x2 in np.linspace(dgi,ggi-dx,N-1):
             Fd+=self.f(x2)*dx
-        print(Fg,Fd)
         return [Fg,Fd]
 
     def int_tr(self,dgi,ggi,N):
@@ -41,10 +39,5 @@ class Calculus:
         F=0
         for x in np.linspace(dgi+dx,ggi,N-1):
             F+=(dx/2)*(self.f(x-dx)+self.f(x))
-        print(F)
         return F
 
-def f(x):
-    return 2*x+3
-c=Calculus(f)
-c.int_tr(-1,3,200)
