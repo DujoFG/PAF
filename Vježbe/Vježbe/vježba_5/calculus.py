@@ -34,9 +34,17 @@ class Calculus:
         for x2 in np.linspace(dgi,ggi-dx,N-1):
             Fd+=self.f(x2)*dx
         print(Fg,Fd)
-        return Fg,Fd
+        return [Fg,Fd]
+
+    def int_tr(self,dgi,ggi,N):
+        dx=(ggi-dgi)/(N-1)
+        F=0
+        for x in np.linspace(dgi+dx,ggi,N-1):
+            F+=(dx/2)*(self.f(x-dx)+self.f(x))
+        print(F)
+        return F
 
 def f(x):
     return 2*x+3
 c=Calculus(f)
-c.int_pr(-1,3,200)
+c.int_tr(-1,3,200)

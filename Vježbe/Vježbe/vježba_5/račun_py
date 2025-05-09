@@ -8,28 +8,50 @@ def f(x):
 def g(x):
     return m.sin(x)
 
-c_k=cal.Calculus(f)
+c_3=cal.Calculus(f)
 x_evi=np.linspace(-1,3,100)
 plt.plot(x_evi,[3*x**2-4*x+2 for x in x_evi],color="red",lw=1)
-for i in c_k.d_int(-1,3,0.001):
+for i in c_3.d_int(-1,3,0.001):
     plt.scatter(i[0],i[1],s=10,color="black")
 
-for i in c_k.d_int(-1,3,0.1):
+for i in c_3.d_int(-1,3,0.1):
     plt.scatter(i[0],i[1],s=10,color="green")
 plt.xlabel("x")
 plt.ylabel("df")
 plt.title("Derivacija kubne jednadžbe")
 plt.show()
 
-c_t=cal.Calculus(g)
+c_2=cal.Calculus(g)
 plt.plot(x_evi,[m.cos(x) for x in x_evi],color="red",lw=1)
-for i in c_t.d_int(-1,3,0.001):
+for i in c_2.d_int(-1,3,0.001):
     plt.scatter(i[0],i[1],s=10,color="black")
-for i in c_t.d_int(-1,3,0.1):
+for i in c_2.d_int(-1,3,0.1):
     plt.scatter(i[0],i[1],s=10,color="green")
 plt.xlabel("x")
 plt.ylabel("df")
 plt.title("Derivacija trigonometrijske jednadžbe")
+plt.show()
+
+c_int_k=cal.Calculus(f)
+plt.axhline(((3**4-(-1)**4)/4)-(2/3)*(3**3-(-1)**3)+(3**2-(-1)**2)-(3*3-(-1)*3),color="red", lw=1)
+for i in np.arange(51,1000,50):
+    plt.scatter(i,c_int_k.int_pr(-1,3,i)[0],s=10,color="black")
+    plt.scatter(i,c_int_k.int_pr(-1,3,i)[1],s=10,color="black")
+    plt.scatter(i,c_int_k.int_tr(-1,3,i),s=10,color="green")
+plt.xlabel("N koraka")
+plt.ylabel("Int(fdx)")
+plt.title("Integral kubne jednadžbe")
+plt.show()
+
+c_int_t=cal.Calculus(g)
+plt.axhline(m.cos(-1)-m.cos(3),color="red", lw=1)
+for i in np.arange(51,1000,50):
+    plt.scatter(i,c_int_t.int_pr(-1,3,i)[0],s=10,color="black")
+    plt.scatter(i,c_int_t.int_pr(-1,3,i)[1],s=10,color="black")
+    plt.scatter(i,c_int_t.int_tr(-1,3,i),s=10,color="green")
+plt.xlabel("N koraka")
+plt.ylabel("Int(fdx)")
+plt.title("Integral trigonometrijske jednadžbe")
 plt.show()
 
 
