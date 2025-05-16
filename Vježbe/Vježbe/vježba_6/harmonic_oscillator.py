@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+import math as m
 
 class HarmonicOscillator:
     def __init__(self, x0, v0 , m, k, dt, T):
@@ -23,8 +23,22 @@ class HarmonicOscillator:
             self.t.append(t)
             t+=self.dt
             i+=1
+        print(len(self.x),len(self.t))
         return [self.t,self.x,self.v,self.a]
 
+    def period(self):
+        br=0
+        while br<=2:
+            for i in range(1,len(self.x)):
+                if self.x[i-1]*self.x[i]<0:
+                    br+=1
+                if br==1:
+                    t1=self.t[i]
+                if br==2:
+                    t2=self.t[i]
+                    
+        T=2*(t2-t1)
+        return T
 
 
             
