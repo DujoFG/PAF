@@ -21,18 +21,21 @@ class Projectile:
         i=0
         t=dt
         while self.y[i]>=0:
-            fi=m.atan(self.vy[i]/self.vx[i])
-            self.x.append(self.x[i]+self.vx[i]*dt)
+            fi=m.atan(abs(self.vy[i]/self.vx[i]))
+            self.ax.append(-np.sign(self.vx[i])*((self.ro*self.Cd*self.A)/(2*self.m0))*(self.vx[i])**2)
             self.vx.append(self.vx[i]+self.ax[i]*dt)
-            self.ax.append(-np.sign(self.vx[i])*((self.ro*self.Cd*self.A*m.sin(fi))/(2*self.m0))*(self.vx[i])**2)
-            self.y.append(self.y[i]+self.vy[i]*dt)
+            self.x.append(self.x[i]+self.vx[i+1]*dt)
+            self.ay.append(-9.81-np.sign(self.vy[i])*((self.ro*self.Cd*self.A)/(2*self.m0))*(self.vy[i])**2)
             self.vy.append(self.vy[i]+self.ay[i]*dt)
-            self.ay.append(-9.81-np.sign(self.vy[i])*((self.ro*self.Cd*self.A*m.cos(fi))/(2*self.m0))*(self.vy[i])**2)
+            self.y.append(self.y[i]+self.vy[i+1]*dt)  
             self.t.append(t)
             t+=dt
             i+=1
-        print(self.x,self.y)
-        return [[self.x,self.vx,self.ax],[self.y,self.vy,self.ay],[self.t]]
+        return self.x,self.vx,self.ax,self.y,self.vy,self.ay,self.t
         
-p=Projectile(45,100,[0,0],1.225,1.05,1,1)
-p.kosi_hitac(0.1)
+p=Projectile(45,10,[0,0],1.225,1.05,1,1)
+x,vx,ax,y,vy,ay,t=p.kosi_hitac(0.001)
+print(ax)
+print(vx)
+plt.plot(x,y)
+plt.show()
