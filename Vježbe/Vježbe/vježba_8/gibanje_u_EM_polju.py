@@ -55,29 +55,41 @@ class Gibanje_u_EM_polju:
             t+=dt
         return self.r,self.v,self.t
 
-g=Gibanje_u_EM_polju((0,0,0),(0.1,0.1,0.1),(0,0,0),(0,0,1),1,-1)
-a,v,r,t=g.gibanje_Euler(0.01,20)
-xe=[p[0] for p in r]
-ye=[p[1] for p in r]
-ze=[p[2] for p in r]
+e=Gibanje_u_EM_polju((0,0,0),(0.1,0.1,0.1),(0,0,0),(0,0,1),1,-1)
+p=Gibanje_u_EM_polju((0,0,0),(0.1,0.1,0.1),(0,0,0),(0,0,1),1,1)
+ae,ve,re,te=e.gibanje_Euler(0.01,20)
+xe=[p[0] for p in re]
+ye=[p[1] for p in re]
+ze=[p[2] for p in re]
+ap,vp,rp,tp=p.gibanje_Euler(0.01,20)
+xp=[p[0] for p in rp]
+yp=[p[1] for p in rp]
+zp=[p[2] for p in rp]
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(xe, ye, ze)
+ax.plot(xp, yp, zp)
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('z')
+ax.set_title("Eulerova metoda")
 
-r,v,t=g.gibanje_RK(0.01,20)
-xrk=[p[0] for p in r]
-yrk=[p[1] for p in r]
-zrk=[p[2] for p in r]
+re,ve,te=e.gibanje_RK(0.01,20)
+xerk=[p[0] for p in re]
+yerk=[p[1] for p in re]
+zerk=[p[2] for p in re]
+rp,vp,tp=p.gibanje_RK(0.01,20)
+xprk=[p[0] for p in rp]
+yprk=[p[1] for p in rp]
+zprk=[p[2] for p in rp]
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot(xrk, yrk, zrk)
+ax.plot(xerk, yerk, zerk)
+ax.plot(xprk, yprk, zprk)
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('z')
-
+ax.set_title("Runge-Kutta metoda")
 plt.show()
 
         
