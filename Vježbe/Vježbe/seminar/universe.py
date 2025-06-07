@@ -1,19 +1,96 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 class Planet:
     def __init__(self,Mp,r0,v0): #r0=[x0,y0], v0=[vx0,vy0]
         self.Mp=Mp
-        self.r0=r0
-        self.v0=v0
-        self.r=[np.array(r0)]
-        self.v=[np.array(v0)]
+        self.r0=np.array(r0)
+        self.v0=np.array(v0)
 
     def podaci(self):
-        return self.r0, self.Mp
+        return self.r0, self.v0, self.Mp
 
-    def sila_na_Planet(self,rp1,,mp1,rp2,mp2):
-        G=6.67*10**-(11)
-        udaljenost=np.sqrt(([0]-rp2[0])**2+(self.r0[1]-rp2[1])**2)
-        smjersile=
-        return ((G*self.Mp*mp2)/udaljenost**2)
+    def sila_na_Planet(self,rp1,r_dp,m_dp):
+        Fuk=0
+        G=6.67*10**(-11)
+        for n, rp2 in enumerate(r_dp):
+            if not np.array_equal(rp1, rp2):
+                udaljenost=np.sqrt((rp1[0]-rp2[0])**2+(rp1[1]-rp2[1])**2)
+                smjersile=(rp2-rp1)/udaljenost
+                Fuk+=((G*self.Mp*m_dp[n])/udaljenost**2)*smjersile
+        return Fuk
+    
+    def pomak(self,rp1,vp1,r_dp,m_dp,dt):
+        a=self.sila_na_Planet(rp1,r_dp,m_dp)/self.Mp
+        v=vp1+a*dt
+        r=rp1+v*dt
+        return r,v,a
+  
+class Universe:
+    def __init__(self,Sunce,Merkur,Venera,Zemlja,Mars):#Sunce=Mp,[x,y],[vx,vy]
+        self.Sunce=Planet(Sunce)
+        self.Merkur=Planet(Merkur)
+        self.Venera=Planet(Venera)
+        self.Zemlja=Planet(Zemlja)
+        self.Mars=Planet(Mars)
+
+    def početni_podaci(self):
+        rs,vs,ms=self.Sunce.podaci()
+        rm,vm,mm=self.Merkur.podaci()
+        rv,vv,mv=self.Venera.podaci()
+        rz,vz,mz=self.Zemlja.podaci()
+        rM,vM,mM=self.Mars.podaci()
+        r0_p=[rs,rm,rv,rz,rM]
+        v0_p=[vs,vm,vv,vz,vM]
+        m_p=[ms,mm,mv,mz,mM]
+        return r0_p,v0_p,m_p
+    
+    def gibanje(self,dt,T):
+        r0_p,v0_p,m_p=self.početni_podaci()
+        rg=[]
+        vg=[]
+        ag=[]
+        tt=[]
+        r_p=[r0_p]
+        v_p=[v0_p]
+        i=0
+        t=0
+        while t<=T:
+            rS,vS,aS=self.Sunce.pomak(r_p[i][0],v_p[i][0],r_p[i],m_p,dt)
+            rm,vm,am=self.Merkur.pomak(r_p[i][1],v_p[i][1],r_p[i],m_p,dt)
+            rV,vV,aV=self.Venera.pomak(r_p[i][2],v_p[i][2],r_p[i],m_p,dt)
+            rZ,vZ,aZ=self.Zemlja.pomak(r_p[i][3],v_p[i][3],r_p[i],m_p,dt)
+            rM,vM,aM=self.Mars.pomak(r_p[i][4],v_p[i][4],r_p[i],m_p,dt)
+            rg.append([rS,rm,rV,rZ,rM])
+            vg.append([vS,vm,vV,vZ,vM])
+            ag.append([aS,am,aV,aZ,aM])
+            v_p.append([vS,vm,vV,vZ,vM])
+            r_p.append([rS,rm,rV,rZ,rM])
+            tt.append(t)
+            i+=1
+            t+=dt
+        return rg,vg,ag,tt
+
+    def putanja(self,dt,T):#T u godinama,dt u sekundama
+        Tp=T*365*24*3600
+        rg,vg,ag,tt=self.gibanje(dt,Tp)
+        rs=[]
+        rm=[]
+        rv=[]
+        rz=[]
+        rM=[]
+        for r in rg:
+            rs.append(r[0])
+            rm.append(r[1])
+            rv.append(r[2])
+            rz.append(r[3])
+            rM.append(r[4])
+
+        plt.plot((r[0] for r in rs),(r[1] for r in rs),color="yellow",label="Sunce")
+        plt.plot((r[0] for r in rm),(r[1] for r in rm),color="purple",label="Merkur")
+        plt.plot((r[0] for r in rv),(r[1] for r in rv),color="green",label="Venera")
+        plt.plot((r[0] for r in rz),(r[1] for r in rz),color="blue",label="Zemlja")
+        plt.plot((r[0] for r in rM),(r[1] for r in rM),color="red",label="Mars")
+        plt.show()
+        
+U=Universe((1.989*10**30,[0,0],[0,0]),(3.285*10**23,[57,91*10**9,0],[0,47.9*10**3]),(4.867*10**24,[108.2*10**9,0],[0,35.2*10**3]),(6*10**24,[149.6*10**9],[0,29.8*10**3]),(6.4191*10**23,[228*10**9,0],[0,24.077*10*3]))
