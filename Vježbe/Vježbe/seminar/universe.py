@@ -28,11 +28,11 @@ class Planet:
   
 class Universe:
     def __init__(self,Sunce,Merkur,Venera,Zemlja,Mars):#Sunce=Mp,[x,y],[vx,vy]
-        self.Sunce=Planet(Sunce)
-        self.Merkur=Planet(Merkur)
-        self.Venera=Planet(Venera)
-        self.Zemlja=Planet(Zemlja)
-        self.Mars=Planet(Mars)
+        self.Sunce=Planet(*Sunce)
+        self.Merkur=Planet(*Merkur)
+        self.Venera=Planet(*Venera)
+        self.Zemlja=Planet(*Zemlja)
+        self.Mars=Planet(*Mars)
 
     def početni_podaci(self):
         rs,vs,ms=self.Sunce.podaci()
@@ -86,11 +86,36 @@ class Universe:
             rz.append(r[3])
             rM.append(r[4])
 
-        plt.plot((r[0] for r in rs),(r[1] for r in rs),color="yellow",label="Sunce")
-        plt.plot((r[0] for r in rm),(r[1] for r in rm),color="purple",label="Merkur")
-        plt.plot((r[0] for r in rv),(r[1] for r in rv),color="green",label="Venera")
-        plt.plot((r[0] for r in rz),(r[1] for r in rz),color="blue",label="Zemlja")
-        plt.plot((r[0] for r in rM),(r[1] for r in rM),color="red",label="Mars")
+        plt.plot([r[0] for r in rs],[r[1] for r in rs],color="yellow",label="Sunce")
+        plt.plot([r[0] for r in rm],[r[1] for r in rm],color="purple",label="Merkur")
+        plt.plot([r[0] for r in rv],[r[1] for r in rv],color="green",label="Venera")
+        plt.plot([r[0] for r in rz],[r[1] for r in rz],color="blue",label="Zemlja")
+        plt.plot([r[0] for r in rM],[r[1] for r in rM],color="red",label="Mars")
+        plt.pause(0.01)
         plt.show()
+    
+    def položaj(self,dt,T):
+        Tp=T*365*24*3600
+        rg,vg,ag,tt=self.gibanje(dt,Tp)
+        rs=[]
+        rm=[]
+        rv=[]
+        rz=[]
+        rM=[]
+        for r in rg:
+            rs.append(r[0])
+            rm.append(r[1])
+            rv.append(r[2])
+            rz.append(r[3])
+            rM.append(r[4])
+
+        plt.scatter(rs[-1][0],rs[-1][1],color="yellow",label="Sunce",s=5)
+        plt.scatter(rm[-1][0],rm[-1][1],color="purple",label="Merkur",s=5)
+        plt.scatter(rv[-1][0],rv[-1][1],color="green",label="Venera",s=5)
+        plt.scatter(rz[-1][0],rz[-1][1],color="blue",label="Zemlja",s=5)
+        plt.scatter(rM[-1][0],rM[-1][1],color="red",label="Mars",s=5)
+        plt.show()
+
         
-U=Universe((1.989*10**30,[0,0],[0,0]),(3.285*10**23,[57,91*10**9,0],[0,47.9*10**3]),(4.867*10**24,[108.2*10**9,0],[0,35.2*10**3]),(6*10**24,[149.6*10**9],[0,29.8*10**3]),(6.4191*10**23,[228*10**9,0],[0,24.077*10*3]))
+U=Universe([1.989e30,[0,0],[0,0]],[3.285e23,[57.91e9,0],[0,47.9e3]],[4.867e24,[108.2e9,0],[0,35.2e3]],[6e24,[149.6e9,0],[0,29.8e3]],[6.4191e23,[228e9,0],[0,24.077e3]])
+U.gibanje(3600,2)
