@@ -86,12 +86,12 @@ class Universe:
             rz.append(r[3])
             rM.append(r[4])
 
-        plt.plot([r[0] for r in rs],[r[1] for r in rs],color="yellow",label="Sunce")
-        plt.plot([r[0] for r in rm],[r[1] for r in rm],color="purple",label="Merkur")
-        plt.plot([r[0] for r in rv],[r[1] for r in rv],color="green",label="Venera")
-        plt.plot([r[0] for r in rz],[r[1] for r in rz],color="blue",label="Zemlja")
-        plt.plot([r[0] for r in rM],[r[1] for r in rM],color="red",label="Mars")
-        plt.pause(0.01)
+            plt.plot([r[0] for r in rs],[r[1] for r in rs],color="yellow",label="Sunce")
+            plt.plot([r[0] for r in rm],[r[1] for r in rm],color="purple",label="Merkur")
+            plt.plot([r[0] for r in rv],[r[1] for r in rv],color="green",label="Venera")
+            plt.plot([r[0] for r in rz],[r[1] for r in rz],color="blue",label="Zemlja")
+            plt.plot([r[0] for r in rM],[r[1] for r in rM],color="red",label="Mars")
+            plt.pause(0.0001)
         plt.show()
     
     def položaj(self,dt,T):
@@ -118,4 +118,4 @@ class Universe:
 
         
 U=Universe([1.989e30,[0,0],[0,0]],[3.285e23,[57.91e9,0],[0,47.9e3]],[4.867e24,[108.2e9,0],[0,35.2e3]],[6e24,[149.6e9,0],[0,29.8e3]],[6.4191e23,[228e9,0],[0,24.077e3]])
-U.gibanje(3600,2)
+U.putanja(115200,1)
