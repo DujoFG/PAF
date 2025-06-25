@@ -33,7 +33,7 @@ class Universe:
             self.tijela.append(tijelo)
 
     def akceleracija(self):
-        G=6.67*10**(-11)
+        G=6.67408e-11
         a_t=[]
         for tijelo in self.tijela:
             auk=0
@@ -53,11 +53,10 @@ class Universe:
             tijelo.r.append(tijelo.r[-1]+tijelo.v[-1]*dt)
 
     def gibanje(self,dt,T):#T u godinama,dt u sekundama
-        Tp=T*365*24*3600
+        Tp=T*365.242*24*3600
         t=0
         while t<=Tp:
-            for tijelo in self.tijela:
-                self.pomak(dt)
+            self.pomak(dt)
             t+=dt
 
     def položaj(self,dt,T):
@@ -100,20 +99,21 @@ class Universe:
         ax.legend()
         for i,tijelo in enumerate(self.tijela):
             r,v,m,ime=tijelo.pod_za_gib()
-            linija, =ax.plot([r[0] for r in tijelo.r],[r[1] for r in tijelo.r],ls='--',color=boje[i],lw=1)
+            linija, =ax.plot([r[0] for r in tijelo.r],[r[1] for r in tijelo.r],ls='--',color=boje[i],lw=0.5)
             linija.set_dashes([8,12])
-        animacija = FuncAnimation(fig, animiraj, frames=range(0,len(self.tijela[0].r),3), interval=0.01, blit=True, repeat=False)
+        animacija = FuncAnimation(fig, animiraj, frames=range(0,len(self.tijela[0].r),3), interval=20, blit=True, repeat=False)
         plt.xlabel("x [m]")
         plt.ylabel("y [m]")
         plt.show()
 
 
 Sunce=Planet(1.989e30,[0,0],[0,0],0,"Sunce")
-Merkur=Planet(3.285e23,[57.91e9,0],[0,47.9e3],120,"Merkur")
-Venera=Planet(4.867e24,[108.2e9,0],[0,35.2e3],265,"Venera")
-Zemlja=Planet(6e24,[149.6e9,0],[0,29.8e3],365.24,"Zemlja")
-Mars=Planet(6.4191e23,[228e9,0],[0,24.077e3],413,"Mars")
+Merkur=Planet(3.3011e23,[57.91e9,0],[0,47.87e3],120,"Merkur")
+Venera=Planet(4.8675e24,[108.21e9,0],[0,35.02e3],265,"Venera")
+Zemlja=Planet(5.972e24,[149.6e9,0],[0,29.783e3],365.24,"Zemlja")
+Mars=Planet(6.4171e23,[227.94e9,0],[0,24.077e3],413,"Mars")
 Sun_sustav=Universe()
 Sun_sustav.dodaj_tijela(Sunce,Merkur,Venera,Zemlja,Mars) 
 
 Sun_sustav.simulacija(14400,1)
+Sun_sustav.položaj(57600,5)
