@@ -16,8 +16,8 @@ class Planet:
     def pod_za_gib(self):
         return self.r0, self.v0, self.Mp, self.ime
     
-    def Podaci_o_Planetu(self):
-        ime="Ime planeta: {}".format(self.ime)
+    def Podaci_o_Tijelu(self):
+        ime="Ime tijela: {}".format(self.ime)
         masa="Masa: {}".format(self.Mp)
         god="Period kruženja: {}".format(self.T0)
         d="Udaljenost od Sunca: {}".format(self.r0)
@@ -64,7 +64,7 @@ class Universe:
         boja=['yellow','grey','orange','blue','red']
         for i,tijelo in enumerate(self.tijela):
             r,v,m,ime=tijelo.pod_za_gib()
-            for n in tijelo.Podaci_o_Planetu():
+            for n in tijelo.Podaci_o_Tijelu():
                 print(n)
             if ime=="Sunce":
                 plt.scatter(tijelo.r[-1][0],tijelo.r[-1][1],color=boja[i],label=ime,s=100)
@@ -101,7 +101,7 @@ class Universe:
         ax.legend()
         for i,tijelo in enumerate(self.tijela):
             r,v,m,ime=tijelo.pod_za_gib()
-            for n in tijelo.Podaci_o_Planetu():
+            for n in tijelo.Podaci_o_Tijelu():
                 print(n)
             linija, =ax.plot([r[0] for r in tijelo.r],[r[1] for r in tijelo.r],ls='--',color=boje[i],lw=0.5)
             linija.set_dashes([8,12])
@@ -112,10 +112,10 @@ class Universe:
 
 
 Sunce=Planet(1.989e30,[0,0],[0,0],0,"Sunce")
-Merkur=Planet(3.3011e23,[57.91e9,0],[0,47.87e3],120,"Merkur")
-Venera=Planet(4.8675e24,[108.21e9,0],[0,35.02e3],265,"Venera")
+Merkur=Planet(3.3011e23,[57.91e9,0],[0,47.87e3],88,"Merkur")
+Venera=Planet(4.8675e24,[108.21e9,0],[0,35.02e3],225,"Venera")
 Zemlja=Planet(5.972e24,[149.6e9,0],[0,29.783e3],365.24,"Zemlja")
-Mars=Planet(6.4171e23,[227.94e9,0],[0,24.077e3],413,"Mars")
+Mars=Planet(6.4171e23,[227.94e9,0],[0,24.077e3],687,"Mars")
 Sun_sustav=Universe()
 Sun_sustav.dodaj_tijela(Sunce,Merkur,Venera,Zemlja,Mars) 
 
