@@ -64,6 +64,8 @@ class Universe:
         boja=['yellow','grey','orange','blue','red']
         for i,tijelo in enumerate(self.tijela):
             r,v,m,ime=tijelo.pod_za_gib()
+            for n in tijelo.Podaci_o_Planetu():
+                print(n)
             if ime=="Sunce":
                 plt.scatter(tijelo.r[-1][0],tijelo.r[-1][1],color=boja[i],label=ime,s=100)
             else:
@@ -99,6 +101,8 @@ class Universe:
         ax.legend()
         for i,tijelo in enumerate(self.tijela):
             r,v,m,ime=tijelo.pod_za_gib()
+            for n in tijelo.Podaci_o_Planetu():
+                print(n)
             linija, =ax.plot([r[0] for r in tijelo.r],[r[1] for r in tijelo.r],ls='--',color=boje[i],lw=0.5)
             linija.set_dashes([8,12])
         animacija = FuncAnimation(fig, animiraj, frames=range(0,len(self.tijela[0].r),3), interval=20, blit=True, repeat=False)
